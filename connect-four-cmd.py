@@ -1,8 +1,5 @@
 #! python3
 
-ROW_COUNT = 6
-COL_COUNT = 7
-
 import numpy as np
 
 def create_board():
@@ -40,6 +37,12 @@ def winningMove(board, piece):
         for r in range(3, ROW_COUNT):
             if piece == board[r][c] == board[r-1][c+1] == board[r-2][c+2] == board[r-3][c+3]:
                 return True
+
+print("Let's play Connect 4!")
+print('How many rows? (4+):')
+ROW_COUNT = int(input())
+print('How many columns? (4+)')
+COL_COUNT = int(input())
 
 board = create_board()
 game_over = False

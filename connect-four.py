@@ -3,6 +3,11 @@
 import numpy as np
 import pygame, sys, math
 
+BLU = (0,0,255)
+BLK = (0,0,0)
+RED = (255,0,0)
+YEL = (255,255,0)
+
 def create_board():
     board = np.zeros((ROW_COUNT,COL_COUNT))
     return board
@@ -42,14 +47,14 @@ def winningMove(board, piece):
 def drawBoard(board):
     for c in range(COL_COUNT):
         for r in range (ROW_COUNT):
-            pygame.draw.rect(screen, (0,0,255), (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
-            pygame.draw.circle(screen, (0,0,0), (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
+            pygame.draw.rect(screen, BLU, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
+            pygame.draw.circle(screen, BLK, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
     for c in range(COL_COUNT):
         for r in range(ROW_COUNT):
             if board[r][c] == 1:
-                pygame.draw.circle(screen, (255,0,0), (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+                pygame.draw.circle(screen, RED, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
             elif board[r][c] == 2:
-                pygame.draw.circle(screen, (255,255,0), (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+                pygame.draw.circle(screen, YEL, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
         pygame.display.update()
 
 ROW_COUNT = 6
@@ -74,6 +79,14 @@ while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        if event.type == pygame.MOUSEMOTION:
+            pygame.draw.rect(screen, BLK, (0,0, width, SQUARESIZE))
+            posx = event.pos[0]
+            if turn == 0:
+                pygame.draw.circle(screen, RED, (posx, int(SQUARESIZE/2)), RADIUS)
+            else:
+                pygame.draw.circle(screen, YEL, (posx, int(SQUARESIZE/2)), RADIUS)
+            pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if turn == 0:
                 posx = event.pos[0]

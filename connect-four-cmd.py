@@ -24,13 +24,21 @@ def printBoard(board):
     print(np.flip(board, 0))
 
 def winningMove(board, piece):
-    for c in range(COL_COUNT-3):
+    for c in range(COL_COUNT-3): #Check for horizontal wins
         for r in range(ROW_COUNT):
             if piece == board[r][c] == board[r][c+1] == board[r][c+2] == board[r][c+3]:
                 return True
-    for c in range(COL_COUNT):
+    for c in range(COL_COUNT): #Check for vertical wins
         for r in range(ROW_COUNT-3):
             if piece == board[r][c] == board[r+1][c] == board[r+2][c] == board[r+3][c]:
+                return True
+    for c in range(COL_COUNT-3): #Check for positive-slope diagonal wins
+        for r in range(ROW_COUNT):
+            if piece == board[r][c] == board[r+1][c+1] == board[r+2][c+2] == board[r+3][c+3]:
+                return True
+    for c in range(COL_COUNT-3): #Check for negative-slope diagonal wins
+        for r in range(3, ROW_COUNT):
+            if piece == board[r][c] == board[r-1][c+1] == board[r-2][c+2] == board[r-3][c+3]:
                 return True
 
 board = create_board()

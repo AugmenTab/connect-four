@@ -1,6 +1,7 @@
 #! python3
 
 import numpy as np
+import pygame
 
 def create_board():
     board = np.zeros((ROW_COUNT,COL_COUNT))
@@ -45,6 +46,13 @@ board = create_board()
 game_over = False
 printBoard(board)
 turn = 0
+
+pygame.init()
+SQUARESIZE = 100
+width = COL_COUNT * SQUARESIZE
+height = ROW_COUNT * SQUARESIZE + 1
+size = (width, height)
+screen = pygame.display.set_mode(size)
 
 while not game_over:
     if turn == 0:

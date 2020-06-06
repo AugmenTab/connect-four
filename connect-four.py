@@ -8,6 +8,12 @@ BLK = (0,0,0)
 RED = (255,0,0)
 YEL = (255,255,0)
 
+def validateNumber(number):
+    if isinstance(number, int) and number >= 4:
+        pass
+    else:
+        raise Exception('Your board dimensions are too small. The board must be 4x4 or larger.')
+
 def create_board():
     board = np.zeros((ROW_COUNT,COL_COUNT))
     return board
@@ -57,8 +63,11 @@ def drawBoard(board):
                 pygame.draw.circle(screen, YEL, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
         pygame.display.update()
 
-ROW_COUNT = 6
-COL_COUNT = 7
+print("Let's play Connect 4!")
+ROW_COUNT = int(input('How many rows? (4+):'))
+validateNumber(ROW_COUNT)
+COL_COUNT = int(input('How many columns? (4+):'))
+validateNumber(COL_COUNT)
 
 board = create_board()
 game_over = False
@@ -66,11 +75,14 @@ printBoard(board)
 turn = 0
 
 pygame.init()
+
 SQUARESIZE = 100
 width = COL_COUNT * SQUARESIZE
 height = ROW_COUNT * SQUARESIZE + 1
 size = (width, height)
+
 RADIUS = int(SQUARESIZE/2 - 5)
+
 screen = pygame.display.set_mode(size)
 drawBoard(board)
 pygame.display.update()

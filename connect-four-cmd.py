@@ -3,6 +3,11 @@
 import numpy as np
 
 
+def validate_number(number):
+    if not (isinstance(number, int) and number >= 4):
+        raise Exception('Your board dimensions are too small. The board must be 4x4 or larger.')
+
+
 def create_board():
     board = np.zeros((ROW_COUNT, COL_COUNT))
     return board
@@ -46,10 +51,10 @@ def winning_move(board, piece):
 
 
 print("Let's play Connect 4!")
-print('How many rows? (4+): ')
-ROW_COUNT = int(input())
-print('How many columns? (4+): ')
-COL_COUNT = int(input())
+ROW_COUNT = int(input('How many rows? (4+): '))
+validate_number(ROW_COUNT)
+COL_COUNT = int(input('How many columns? (4+): '))
+validate_number(COL_COUNT)
 
 board = create_board()
 game_over = False
